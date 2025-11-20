@@ -1,0 +1,243 @@
+﻿@model Claim
+@{
+    ViewData["Title"] = "Submit New Claim";
+    var culture = new System.Globalization.CultureInfo("en-ZA");
+    var currentUser = ViewData["CurrentUser"] as CurrentUser;
+}
+
+@section Styles {
+    <style>
+        .calculation-card {
+            transition: all 0.3s ease;
+        }
+
+        .auto-calculation {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+        }
+
+        .real-time-feedback {
+            border-left: 4px solid #007bff;
+            padding-left: 15px;
+        }
+
+        .validation-pulse {
+            transition: transform 0.3s ease;
+        }
+
+            .validation-pulse:hover {
+                transform: scale(1.05);
+            }
+
+        .pulse-effect {
+            box-shadow: 0 0 0 rgba(0, 123, 255, 0.4);
+            animation: simple-pulse 2s infinite;
+        }
+    </style>
+}
+
+<h2>Submit New Claim</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fas fa-exclamation-triangle"></i> @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Create" enctype="multipart/form-data" id="claimForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Month Selection -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">1. Select Claim Period</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="ClaimMonth" class="form-label fw-bold"></label>
+                                <input asp-for="ClaimMonth" type="month" class="form-control" />
+                                <span asp-validation-for="ClaimMonth" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="real-time-feedback">
+                                <strong>Selected Period:</strong>
+                                <div id="selectedMonthDisplay" class="text-primary fw-bold">@DateTime.Now.ToString("MMMM yyyy")</div>
+                                <small class="text-muted">Monthly claims only</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hours and Rate Input -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">2. Enter Hours and Rate</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="HoursWorked" class="form-label fw-bold"></label>
+                                <input asp-for="HoursWorked" class="form-control"
+                                       min="1" max="200" step="0.5"
+                                       placeholder="Enter hours worked" />
+                                <span asp-validation-for="HoursWorked" class="text-danger"></span>
+                                <small class="form-text text-muted">Enter total hours (1-200)</small>
+                                <div id="hoursError" class="text-danger small"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="HourlyRate" class="form-label fw-bold"></label>
+                                <div class="input-group">
+                                    <span class="input-group-text">R</span>
+                                    <input asp-for="HourlyRate" class="form-control"
+                                           min="100" max="1000" step="0.01"
+                                           placeholder="500.00" />
+                                </div>
+                                <span asp-validation-for="HourlyRate" class="text-danger"></span>
+                                <small class="form-text text-muted">Rate between R100 - R1000</small>
+                                <div id="rateError" class="text-danger small"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real-time Calculation Display -->
+            <div class="card mb-4 auto-calculation text-white calculation-card" id="calculationCard">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Automated Calculation</h4>
+                    <div class="display-4 fw-bold mb-2" id="totalAmountDisplay">R 0.00</div>
+                    <p class="card-text mb-0">
+                        <span id="calculationDetails">Enter hours and rate to see calculation</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Additional Information -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">3. Additional Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group mb-3">
+                        <label asp-for="Notes" class="form-label fw-bold"></label>
+                        <textarea asp-for="Notes" class="form-control" rows="4"
+                                  placeholder="Optional: Describe work completed, modules taught, or any special circumstances..."></textarea>
+                        <span asp-validation-for="Notes" class="text-danger"></span>
+                        <small class="form-text text-muted">Maximum 500 characters</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- File Upload -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">4. Supporting Documents (Optional)</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group mb-3">
+                        <label class="form-label fw-bold">Upload Supporting Document</label>
+                        <input type="file" name="supportingDocument" class="form-control"
+                               accept=".pdf,.docx,.xlsx" />
+                        <small class="form-text text-muted">
+                            Allowed: PDF, Word (.docx), Excel (.xlsx) | Maximum: 5MB
+                        </small>
+                    </div>
+                    <div id="filePreview"></div>
+                </div>
+            </div>
+
+            <!-- Submission -->
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-lg validation-pulse" disabled>
+                    <i class="fas fa-paper-plane"></i> Submit Claim
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Back to My Claims</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Information Sidebar -->
+    <div class="col-md-4">
+        <div class="card bg-light">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Claim Information</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    <strong>Submission Date:</strong><br>
+                    @DateTime.Now.ToString("dd MMMM yyyy")
+                </p>
+                <p class="card-text">
+                    <strong>Current Status:</strong><br>
+                    <span class="badge bg-warning">Pending</span>
+                </p>
+                <p class="card-text">
+                    <strong>Approval Process:</strong><br>
+                    Automated verification → Coordinator review → Manager approval
+                </p>
+                <hr>
+                <h6>Automation Features:</h6>
+                <ul class="small">
+                    <li>Real-time total calculation</li>
+                    <li>Input validation with instant feedback</li>
+                    <li>Duplicate claim prevention</li>
+                    <li>File type and size validation</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/claims-automation.js"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // Update calculation details in real-time
+        function updateCalculationDetails() {
+            const hours = parseFloat(document.getElementById('HoursWorked')?.value) || 0;
+            const rate = parseFloat(document.getElementById('HourlyRate')?.value) || 0;
+            const details = document.getElementById('calculationDetails');
+
+            if (details && hours > 0 && rate > 0) {
+                details.textContent = `${hours} hours × R${rate.toFixed(2)}/hour = R${(hours * rate).toFixed(2)}`;
+            } else if (details) {
+                details.textContent = 'Enter hours and rate to see calculation';
+            }
+        }
+
+        // Attach event listeners for calculation details
+        document.addEventListener('DOMContentLoaded', function() {
+            const hoursInput = document.getElementById('HoursWorked');
+            const rateInput = document.getElementById('HourlyRate');
+
+            if (hoursInput && rateInput) {
+                hoursInput.addEventListener('input', updateCalculationDetails);
+                rateInput.addEventListener('input', updateCalculationDetails);
+                updateCalculationDetails(); // Initial update
+            }
+        });
+    </script>
+}
