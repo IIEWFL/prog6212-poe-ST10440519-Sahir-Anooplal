@@ -3,24 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\views\\approval\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:views\\approval\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\controllers\\approvalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:controllers\\approvalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\services\\approvalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:services\\approvalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\services\\iapprovalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:services\\iapprovalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\views\\hr\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:views\\hr\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\views\\hr\\reports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:views\\hr\\reports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\views\\hr\\createlecturer.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:views\\hr\\createlecturer.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\views\\hr\\lecturers.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:views\\hr\\lecturers.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\controllers\\hrcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:controllers\\hrcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,63 +34,76 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Views\\Approval\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Approval\\Index.cshtml",
-              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Views\\Approval\\Index.cshtml",
-              "RelativeToolTip": "Views\\Approval\\Index.cshtml",
-              "ViewState": "AgIAAGMAAAAA/P///z8lwOcAAABbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-20T18:59:48.196Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ApprovalController.cs",
-              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Controllers\\ApprovalController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ApprovalController.cs",
-              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Controllers\\ApprovalController.cs",
-              "RelativeToolTip": "Controllers\\ApprovalController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJ0AAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-20T18:57:30.492Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "ApprovalService.cs",
-              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Services\\ApprovalService.cs",
-              "RelativeDocumentMoniker": "Services\\ApprovalService.cs",
-              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Services\\ApprovalService.cs",
-              "RelativeToolTip": "Services\\ApprovalService.cs",
-              "ViewState": "AgIAANsAAAAAxszMzIwuwOoAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-20T18:55:26.344Z",
+              "Title": "Reports.cshtml",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Views\\HR\\Reports.cshtml",
+              "RelativeDocumentMoniker": "Views\\HR\\Reports.cshtml",
+              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Views\\HR\\Reports.cshtml",
+              "RelativeToolTip": "Views\\HR\\Reports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADoAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-20T19:32:43.856Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "IApprovalService.cs",
-              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Services\\IApprovalService.cs",
-              "RelativeDocumentMoniker": "Services\\IApprovalService.cs",
-              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Services\\IApprovalService.cs",
-              "RelativeToolTip": "Services\\IApprovalService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-20T18:54:30.536Z",
+              "Title": "CreateLecturer.cshtml",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Views\\HR\\CreateLecturer.cshtml",
+              "RelativeDocumentMoniker": "Views\\HR\\CreateLecturer.cshtml",
+              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Views\\HR\\CreateLecturer.cshtml",
+              "RelativeToolTip": "Views\\HR\\CreateLecturer.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-20T19:31:47.458Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "Lecturers.cshtml",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Views\\HR\\Lecturers.cshtml",
+              "RelativeDocumentMoniker": "Views\\HR\\Lecturers.cshtml",
+              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Views\\HR\\Lecturers.cshtml",
+              "RelativeToolTip": "Views\\HR\\Lecturers.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAG4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-20T19:30:37.281Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Views\\HR\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\HR\\Index.cshtml",
+              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Views\\HR\\Index.cshtml",
+              "RelativeToolTip": "Views\\HR\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-20T19:28:49.93Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "HRController.cs",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Controllers\\HRController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HRController.cs",
+              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Controllers\\HRController.cs",
+              "RelativeToolTip": "Controllers\\HRController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAPsBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-20T19:26:55.465Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",

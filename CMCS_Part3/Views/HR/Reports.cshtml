@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Report>
+@{
+    ViewData["Title"] = "Reports";
+}
+
+<h2>Reports</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Recent Reports</h5>
+            </div>
+            <div class="card-body">
+                @if (Model.Any())
+                {
+                    <div class="list-group">
+                        @foreach (var report in Model)
+                        {
+                            <a href="@Url.Action("ReportDetails", new { id = report.Id })"
+                               class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">@report.ReportName</h6>
+                                    <small>@report.GeneratedDate.ToString("dd MMM yyyy")</small>
+                                </div>
+                                <p class="mb-1">@report.Type - @report.TotalClaims claims</p>
+                                <small class="text-muted">Total: R@(report.TotalAmount.ToString("N2"))</small>
+                            </a>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted">No reports generated yet.</p>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="@Url.Action("GenerateReport")" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Generate New Report
+                    </a>
+                    <a href="@Url.Action("ClaimAnalysis")" class="btn btn-info">
+                        <i class="fas fa-chart-pie"></i> View Analysis
+                    </a>
+                    <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
+                        Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

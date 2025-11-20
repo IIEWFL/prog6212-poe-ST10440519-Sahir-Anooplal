@@ -1,0 +1,171 @@
+﻿@using CMCS_Part3.Controllers
+@model HRDashboardStats
+@{
+    ViewData["Title"] = "HR Dashboard";
+    var currentUser = ViewData["CurrentUser"] as CurrentUser;
+    var culture = new System.Globalization.CultureInfo("en-ZA");
+}
+
+<h2>HR Dashboard</h2>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4>@Model.TotalLecturers</h4>
+                        <p class="mb-0">Total Lecturers</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-users fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4>@Model.ActiveLecturers</h4>
+                        <p class="mb-0">Active Lecturers</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-user-check fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4>@Model.TotalClaims</h4>
+                        <p class="mb-0">Total Claims</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-file-invoice-dollar fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-info">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4>@Model.TotalAmountApproved.ToString("C", culture)</h4>
+                        <p class="mb-0">Total Approved</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-money-bill-wave fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="@Url.Action("Lecturers")" class="btn btn-primary btn-lg">
+                        <i class="fas fa-users"></i> Manage Lecturers
+                    </a>
+                    <a href="@Url.Action("Reports")" class="btn btn-success btn-lg">
+                        <i class="fas fa-chart-bar"></i> Generate Reports
+                    </a>
+                    <a href="@Url.Action("ClaimAnalysis")" class="btn btn-info btn-lg">
+                        <i class="fas fa-chart-pie"></i> Claim Analysis
+                    </a>
+                    <a href="@Url.Action("GenerateReport")" class="btn btn-warning btn-lg">
+                        <i class="fas fa-file-export"></i> Create New Report
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Claim Status Overview</h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-4">
+                        <div class="text-warning">
+                            <h3>@Model.PendingClaims</h3>
+                            <small>Pending</small>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="text-success">
+                            <h3>@Model.ApprovedClaims</h3>
+                            <small>Approved</small>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="text-danger">
+                            <h3>@(Model.TotalClaims - Model.PendingClaims - Model.ApprovedClaims)</h3>
+                            <small>Rejected</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress mt-3" style="height: 20px;">
+                    <div class="progress-bar bg-warning" style="width: @(Model.TotalClaims > 0 ? (Model.PendingClaims * 100 / Model.TotalClaims) : 0)%">
+                        Pending
+                    </div>
+                    <div class="progress-bar bg-success" style="width: @(Model.TotalClaims > 0 ? (Model.ApprovedClaims * 100 / Model.TotalClaims) : 0)%">
+                        Approved
+                    </div>
+                    <div class="progress-bar bg-danger" style="width: @(Model.TotalClaims > 0 ? ((Model.TotalClaims - Model.PendingClaims - Model.ApprovedClaims) * 100 / Model.TotalClaims) : 0)%">
+                        Rejected
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">System Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>HR User:</strong> @currentUser?.Name<br>
+                        <strong>Role:</strong> @currentUser?.Role<br>
+                        <strong>Login Time:</strong> @DateTime.Now.ToString("dd MMM yyyy HH:mm")
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Total Departments:</strong> @GetDepartmentCount()<br>
+                        <strong>Average Claim Amount:</strong> @(Model.TotalClaims > 0 ? (Model.TotalAmountApproved / Model.ApprovedClaims).ToString("C", culture) : "R0.00")<br>
+                        <strong>System Status:</strong> <span class="badge bg-success">Operational</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    private int GetDepartmentCount()
+    {
+        // This would typically come from a service
+        // For now, return a simulated count
+        return 5;
+    }
+}
