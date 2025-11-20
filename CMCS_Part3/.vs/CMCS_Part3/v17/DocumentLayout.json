@@ -7,24 +7,20 @@
       "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\wwwroot\\js\\file-upload-enhanced.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:wwwroot\\js\\file-upload-enhanced.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\views\\approval\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:views\\approval\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\wwwroot\\js\\claims-automation.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:wwwroot\\js\\claims-automation.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\controllers\\approvalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:controllers\\approvalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\views\\claims\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:views\\claims\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\services\\approvalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:services\\approvalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\controllers\\claimscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:controllers\\claimscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\services\\iapprovalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:services\\iapprovalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,69 +30,58 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "file-upload-enhanced.js",
-              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\wwwroot\\js\\file-upload-enhanced.js",
-              "RelativeDocumentMoniker": "wwwroot\\js\\file-upload-enhanced.js",
-              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\wwwroot\\js\\file-upload-enhanced.js",
-              "RelativeToolTip": "wwwroot\\js\\file-upload-enhanced.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIoAAABIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-11-20T15:20:51.461Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ClaimsController.cs",
-              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Controllers\\ClaimsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ClaimsController.cs",
-              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Controllers\\ClaimsController.cs",
-              "RelativeToolTip": "Controllers\\ClaimsController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAOAAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-20T15:16:07.891Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8AAABPAAAAAAAAAA==",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Views\\Approval\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Approval\\Index.cshtml",
+              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Views\\Approval\\Index.cshtml",
+              "RelativeToolTip": "Views\\Approval\\Index.cshtml",
+              "ViewState": "AgIAAGMAAAAA/P///z8lwOcAAABbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-20T14:43:46.834Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Views\\Claims\\Create.cshtml",
-              "RelativeDocumentMoniker": "Views\\Claims\\Create.cshtml",
-              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Views\\Claims\\Create.cshtml",
-              "RelativeToolTip": "Views\\Claims\\Create.cshtml",
-              "ViewState": "AgIAABMBAADwaWZmZuYswBEBAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-20T14:42:18.944Z",
+              "WhenOpened": "2025-11-20T18:59:48.196Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "claims-automation.js",
-              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\wwwroot\\js\\claims-automation.js",
-              "RelativeDocumentMoniker": "wwwroot\\js\\claims-automation.js",
-              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\wwwroot\\js\\claims-automation.js",
-              "RelativeToolTip": "wwwroot\\js\\claims-automation.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAANcAAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-11-20T14:39:02.685Z",
+              "Title": "ApprovalController.cs",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Controllers\\ApprovalController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ApprovalController.cs",
+              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Controllers\\ApprovalController.cs",
+              "RelativeToolTip": "Controllers\\ApprovalController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJ0AAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-20T18:57:30.492Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ApprovalService.cs",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Services\\ApprovalService.cs",
+              "RelativeDocumentMoniker": "Services\\ApprovalService.cs",
+              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Services\\ApprovalService.cs",
+              "RelativeToolTip": "Services\\ApprovalService.cs",
+              "ViewState": "AgIAANsAAAAAxszMzIwuwOoAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-20T18:55:26.344Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IApprovalService.cs",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Services\\IApprovalService.cs",
+              "RelativeDocumentMoniker": "Services\\IApprovalService.cs",
+              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Services\\IApprovalService.cs",
+              "RelativeToolTip": "Services\\IApprovalService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-20T18:54:30.536Z",
               "EditorCaption": ""
             },
             {
@@ -107,7 +92,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAA4AAAAAAAAAA==",
+              "ViewState": "AgIAABAAAABAMzMzM/MmwBkAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-20T13:51:45.994Z",
               "EditorCaption": ""
