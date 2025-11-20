@@ -10,15 +10,17 @@ namespace CMCS_Part3.Controllers
         private readonly CMCSDbContext _context;
         private readonly IUserService _userService;
         private readonly IFileService _fileService;
+        private readonly IStatusService _statusService;
 
-        public ClaimsController(CMCSDbContext context, IUserService userService, IFileService fileService)
+        public ClaimsController(CMCSDbContext context, IUserService userService, IFileService fileService, IStatusService statusService)
         {
             _context = context;
             _userService = userService;
             _fileService = fileService;
+            _statusService = statusService;
         }
 
-        // GET: Claims - Shows list of claims for the CURRENT lecturer
+        // GET: Claims - Shows list of claims for the CURRENT lecturer with enhanced status tracking
         public async Task<IActionResult> Index()
         {
             if (!_userService.CanAccessClaims())
@@ -39,9 +41,17 @@ namespace CMCS_Part3.Controllers
                 .OrderByDescending(c => c.SubmissionDate)
                 .ToListAsync();
 
+            // Get status overview for the current user
+            var statusOverview = await _statusService.GetStatusOverviewAsync();
+            var overdueClaims = await _statusService.GetOverdueClaimsAsync();
+            var userOverdueClaims = overdueClaims.Where(c => c.LecturerId == currentUser.LecturerId).ToList();
+
             ViewData["CurrentUser"] = currentUser;
             ViewData["SupportedFileTypes"] = _fileService.GetSupportedFileTypes();
             ViewData["MaxFileSize"] = _fileService.GetMaxFileSize();
+            ViewData["StatusOverview"] = statusOverview;
+            ViewData["OverdueClaims"] = userOverdueClaims;
+            ViewData["TotalOverdue"] = userOverdueClaims.Count;
 
             return View(claims);
         }
@@ -136,6 +146,9 @@ namespace CMCS_Part3.Controllers
                         }
                     }
 
+                    // Send status notification
+                    await _statusService.SendStatusNotificationAsync(claim, "New claim submitted for review");
+
                     TempData["SuccessMessage"] = $"Claim submitted successfully! Total amount: R{claim.TotalAmount:N2}";
                     return RedirectToAction(nameof(Index));
                 }
@@ -151,7 +164,7 @@ namespace CMCS_Part3.Controllers
             return View(claim);
         }
 
-        // GET: Claims/Details/5 - View claim details
+        // GET: Claims/Details/5 - View claim details with status history
         public async Task<IActionResult> Details(int? id)
         {
             if (!_userService.CanAccessClaims())
@@ -175,8 +188,51 @@ namespace CMCS_Part3.Controllers
                 return NotFound();
             }
 
+            // Get status history
+            var statusHistory = await _statusService.GetStatusHistoryAsync(claim.Id);
+            var isOverdue = await _statusService.GetOverdueClaimsAsync();
+            var claimIsOverdue = isOverdue.Any(c => c.Id == claim.Id);
+
             ViewData["CurrentUser"] = currentUser;
             ViewData["FileService"] = _fileService;
+            ViewData["StatusHistory"] = statusHistory;
+            ViewData["IsOverdue"] = claimIsOverdue;
+            ViewData["DaysPending"] = (DateTime.Now - claim.SubmissionDate).Days;
+
+            return View(claim);
+        }
+
+        // GET: Claims/Status/5 - Status tracking page
+        public async Task<IActionResult> Status(int? id)
+        {
+            if (!_userService.CanAccessClaims())
+            {
+                return RedirectToAction("AccessDenied", "Home");
+            }
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var currentUser = _userService.GetCurrentUser();
+            var claim = await _context.Claims
+                .Include(c => c.Lecturer)
+                .Include(c => c.SupportingDocuments)
+                .FirstOrDefaultAsync(c => c.Id == id && c.LecturerId == currentUser!.LecturerId);
+
+            if (claim == null)
+            {
+                return NotFound();
+            }
+
+            var statusHistory = await _statusService.GetStatusHistoryAsync(claim.Id);
+            var statusOverview = await _statusService.GetStatusOverviewAsync();
+
+            ViewData["CurrentUser"] = currentUser;
+            ViewData["StatusHistory"] = statusHistory;
+            ViewData["StatusOverview"] = statusOverview;
+            ViewData["EstimatedApprovalTime"] = GetEstimatedApprovalTime(claim);
 
             return View(claim);
         }
@@ -213,6 +269,24 @@ namespace CMCS_Part3.Controllers
             }
         }
 
+        // GET: Claims/Overdue - Show overdue claims
+        public async Task<IActionResult> Overdue()
+        {
+            if (!_userService.CanAccessClaims())
+            {
+                return RedirectToAction("AccessDenied", "Home");
+            }
+
+            var currentUser = _userService.GetCurrentUser();
+            var overdueClaims = await _statusService.GetOverdueClaimsAsync();
+            var userOverdueClaims = overdueClaims.Where(c => c.LecturerId == currentUser!.LecturerId).ToList();
+
+            ViewData["CurrentUser"] = currentUser;
+            ViewData["TotalOverdue"] = userOverdueClaims.Count;
+
+            return View(userOverdueClaims);
+        }
+
         private string GetMonthName(string monthString)
         {
             if (DateTime.TryParseExact(monthString, "yyyy-MM", null, System.Globalization.DateTimeStyles.None, out var date))
@@ -220,6 +294,26 @@ namespace CMCS_Part3.Controllers
                 return date.ToString("MMMM yyyy");
             }
             return monthString;
+        }
+
+        private string GetEstimatedApprovalTime(Claim claim)
+        {
+            var daysPending = (DateTime.Now - claim.SubmissionDate).Days;
+
+            if (claim.Status == ClaimStatus.Approved)
+                return "Approved";
+
+            if (claim.Status == ClaimStatus.Rejected)
+                return "Rejected";
+
+            if (daysPending < 7)
+                return "1-2 weeks";
+            else if (daysPending < 14)
+                return "This week";
+            else if (daysPending < 30)
+                return "Overdue - Please follow up";
+            else
+                return "Significantly overdue - Contact administrator";
         }
     }
 }

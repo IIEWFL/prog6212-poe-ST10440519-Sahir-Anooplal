@@ -5,6 +5,22 @@
     {
       "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\views\\claims\\status.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:views\\claims\\status.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\services\\statusservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:services\\statusservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\controllers\\claimscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:controllers\\claimscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\services\\istatusservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:services\\istatusservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,8 +30,60 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Status.cshtml",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Views\\Claims\\Status.cshtml",
+              "RelativeDocumentMoniker": "Views\\Claims\\Status.cshtml",
+              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Views\\Claims\\Status.cshtml",
+              "RelativeToolTip": "Views\\Claims\\Status.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAALUAAABlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-20T20:10:32.948Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ClaimsController.cs",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Controllers\\ClaimsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ClaimsController.cs",
+              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Controllers\\ClaimsController.cs",
+              "RelativeToolTip": "Controllers\\ClaimsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD4BAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-20T20:08:15.679Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StatusService.cs",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Services\\StatusService.cs",
+              "RelativeDocumentMoniker": "Services\\StatusService.cs",
+              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Services\\StatusService.cs",
+              "RelativeToolTip": "Services\\StatusService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-20T20:06:30.956Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IStatusService.cs",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Services\\IStatusService.cs",
+              "RelativeDocumentMoniker": "Services\\IStatusService.cs",
+              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Services\\IStatusService.cs",
+              "RelativeToolTip": "Services\\IStatusService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-20T20:05:32.839Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -24,7 +92,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAABAAAABAMzMzM/MmwBoAAAA8AAAAAAAAAA==",
+              "ViewState": "AgIAABAAAABAMzMzM/MmwBsAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-20T13:51:45.994Z",
               "EditorCaption": ""
