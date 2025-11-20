@@ -24,6 +24,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IApprovalService, ApprovalService>();
+builder.Services.AddScoped<IReportService, ReportService>();
 
 var app = builder.Build();
 
