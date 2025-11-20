@@ -1,8 +1,115 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Dashboard";
+    var currentUser = ViewData["CurrentUser"] as CurrentUser;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Welcome to CMCS</h1>
+        <div class="text-end">
+            <small class="text-muted">Logged in as: <strong>@currentUser?.Name</strong></small>
+            <br>
+            <small class="text-muted">Role: <span class="badge bg-primary">@currentUser?.Role</span></small>
+            <a href="@Url.Action("Logout")" class="btn btn-sm btn-outline-secondary ms-2">Switch Role</a>
+        </div>
+    </div>
+
+    <div class="row">
+        @if (currentUser?.IsLecturer == true)
+        {
+            <!-- Lecturer Dashboard -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-primary">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">Submit Claims</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Submit new monthly claims with automated calculations.</p>
+                        <a href="@Url.Action("Create", "Claims")" class="btn btn-primary">Submit New Claim</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">My Claims</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">View and track your submitted claims.</p>
+                        <a href="@Url.Action("Index", "Claims")" class="btn btn-outline-primary">View My Claims</a>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (currentUser?.IsApprover == true)
+        {
+            <!-- Approver Dashboard -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-warning">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="card-title mb-0">Pending Claims</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Review and approve pending claims with automated verification.</p>
+                        <a href="@Url.Action("Index", "Approval")" class="btn btn-warning">Review Claims</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">All Claims</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">View all claims in the system.</p>
+                        <a href="@Url.Action("All", "Approval")" class="btn btn-outline-warning">View All Claims</a>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (currentUser?.IsHR == true)
+        {
+            <!-- HR Dashboard -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-info">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="card-title mb-0">Lecturer Management</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Manage lecturer information and profiles.</p>
+                        <a href="@Url.Action("Index", "HR")" class="btn btn-info">Manage Lecturers</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-success">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="card-title mb-0">Reports</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Generate automated reports and invoices.</p>
+                        <a href="@Url.Action("Reports", "HR")" class="btn btn-success">Generate Reports</a>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <!-- Common Cards -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-secondary">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="card-title mb-0">System Info</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <strong>Role:</strong> @currentUser?.Role<br>
+                        <strong>User:</strong> @currentUser?.Name<br>
+                        <strong>Email:</strong> @currentUser?.Email
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

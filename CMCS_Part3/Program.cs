@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using CMCS_Part3.Models;
+using CMCS_Part3.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,7 @@ builder.Services.AddSession(options =>
 });
 
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
