@@ -9,11 +9,13 @@ namespace CMCS_Part3.Controllers
     {
         private readonly CMCSDbContext _context;
         private readonly IUserService _userService;
+        private readonly IFileService _fileService;
 
-        public ClaimsController(CMCSDbContext context, IUserService userService)
+        public ClaimsController(CMCSDbContext context, IUserService userService, IFileService fileService)
         {
             _context = context;
             _userService = userService;
+            _fileService = fileService;
         }
 
         // GET: Claims - Shows list of claims for the CURRENT lecturer
@@ -38,6 +40,9 @@ namespace CMCS_Part3.Controllers
                 .ToListAsync();
 
             ViewData["CurrentUser"] = currentUser;
+            ViewData["SupportedFileTypes"] = _fileService.GetSupportedFileTypes();
+            ViewData["MaxFileSize"] = _fileService.GetMaxFileSize();
+
             return View(claims);
         }
 
@@ -63,13 +68,16 @@ namespace CMCS_Part3.Controllers
                 HourlyRate = 0
             };
 
+            ViewData["SupportedFileTypes"] = _fileService.GetSupportedFileTypes();
+            ViewData["MaxFileSize"] = _fileService.GetMaxFileSize();
+
             return View(claim);
         }
 
         // POST: Claims/Create - Handle claim submission with enhanced validation
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Claim claim, IFormFile? supportingDocument)
+        public async Task<IActionResult> Create(Claim claim, List<IFormFile> supportingDocuments)
         {
             if (!_userService.CanAccessClaims())
             {
@@ -115,10 +123,17 @@ namespace CMCS_Part3.Controllers
                     _context.Add(claim);
                     await _context.SaveChangesAsync();
 
-                    // Handle file upload if present
-                    if (supportingDocument != null && supportingDocument.Length > 0)
+                    // Handle file uploads if present
+                    if (supportingDocuments != null && supportingDocuments.Any(f => f.Length > 0))
                     {
-                        await HandleFileUpload(supportingDocument, claim.Id);
+                        foreach (var file in supportingDocuments.Where(f => f.Length > 0))
+                        {
+                            var uploadResult = await _fileService.UploadFileAsync(file, claim.Id);
+                            if (!uploadResult.Success)
+                            {
+                                TempData["WarningMessage"] = $"Some files could not be uploaded: {uploadResult.Message}";
+                            }
+                        }
                     }
 
                     TempData["SuccessMessage"] = $"Claim submitted successfully! Total amount: R{claim.TotalAmount:N2}";
@@ -130,7 +145,9 @@ namespace CMCS_Part3.Controllers
                 }
             }
 
-            // If something failed then redisplay form
+            ViewData["SupportedFileTypes"] = _fileService.GetSupportedFileTypes();
+            ViewData["MaxFileSize"] = _fileService.GetMaxFileSize();
+
             return View(claim);
         }
 
@@ -159,55 +176,41 @@ namespace CMCS_Part3.Controllers
             }
 
             ViewData["CurrentUser"] = currentUser;
+            ViewData["FileService"] = _fileService;
+
             return View(claim);
         }
 
-        private async Task HandleFileUpload(IFormFile file, int claimId)
+        // POST: Claims/DeleteDocument/5 - Delete a document
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteDocument(int id)
         {
-            // Validate file type and size
-            var allowedExtensions = new[] { ".pdf", ".docx", ".xlsx" };
-            var fileExtension = Path.GetExtension(file.FileName).ToLowerInvariant();
-
-            if (!allowedExtensions.Contains(fileExtension))
+            if (!_userService.CanAccessClaims())
             {
-                TempData["ErrorMessage"] = "Invalid file type. Only PDF, DOCX, and XLSX files are allowed.";
-                return;
+                return Json(new { success = false, message = "Access denied" });
             }
 
-            if (file.Length > 5 * 1024 * 1024) // 5MB limit
+            var currentUser = _userService.GetCurrentUser();
+            var document = await _context.SupportingDocuments
+                .Include(d => d.Claim)
+                .FirstOrDefaultAsync(d => d.Id == id && d.Claim!.LecturerId == currentUser!.LecturerId);
+
+            if (document == null)
             {
-                TempData["ErrorMessage"] = "File size too large. Maximum size is 5MB.";
-                return;
+                return Json(new { success = false, message = "Document not found" });
             }
 
-            // Generate unique filename
-            var storedFileName = $"{Guid.NewGuid()}{fileExtension}";
-            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+            var result = await _fileService.DeleteFileAsync(document.StoredFileName);
 
-            if (!Directory.Exists(uploadsFolder))
+            if (result)
             {
-                Directory.CreateDirectory(uploadsFolder);
+                return Json(new { success = true, message = "Document deleted successfully" });
             }
-
-            var filePath = Path.Combine(uploadsFolder, storedFileName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            else
             {
-                await file.CopyToAsync(stream);
+                return Json(new { success = false, message = "Failed to delete document" });
             }
-
-            // Save document info to database
-            var document = new SupportingDocument
-            {
-                FileName = file.FileName,
-                StoredFileName = storedFileName,
-                FileSize = file.Length,
-                FileType = fileExtension,
-                ClaimId = claimId
-            };
-
-            _context.SupportingDocuments.Add(document);
-            await _context.SaveChangesAsync();
         }
 
         private string GetMonthName(string monthString)
