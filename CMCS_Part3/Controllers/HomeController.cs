@@ -1,73 +1,93 @@
-using Microsoft.AspNetCore.Mvc;
-using CMCS_Part3.Services;
 using CMCS_Part3.Models;
+using CMCS_Part3.Services;
+using CMCS_Part3.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics; //[2]
+using System.Security.Claims;
 
 namespace CMCS_Part3.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IUserService _userService;
+        private readonly IClaimService _claimService;
+        private readonly IReportService _reportService;
 
-        public HomeController(IUserService userService)
+        public HomeController(IClaimService claimService, IReportService reportService)
         {
-            _userService = userService;
+            _claimService = claimService; //[4]
+            _reportService = reportService; //[4]
         }
 
         public IActionResult Index()
         {
-            var currentUser = _userService.GetCurrentUser();
-            if (currentUser == null)
+            if (User.Identity?.IsAuthenticated == true) //[1]
             {
-                return RedirectToAction("SelectRole");
+                return RedirectToAction("Dashboard");
+            }
+            return View();
+        }
+
+        [Authorize] //[1]
+        public async Task<IActionResult> Dashboard()
+        {
+            var userRole = User.IsInRole("Lecturer") ? "Lecturer" :
+                          User.IsInRole("ProgrammeCoordinator") ? "ProgrammeCoordinator" :
+                          User.IsInRole("AcademicManager") ? "AcademicManager" : "HR";
+
+            ViewBag.UserRole = userRole;
+
+            if (userRole == "Lecturer")
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); //[3]
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    var claims = await _claimService.GetClaimsByLecturerAsync(userId);
+                    return View("LecturerDashboard", claims);
+                }
+            }
+            else if (userRole == "ProgrammeCoordinator" || userRole == "AcademicManager")
+            {
+                var pendingClaims = await _claimService.GetPendingClaimsAsync(); //[4]
+                return View("ApproverDashboard", pendingClaims);
+            }
+            else if (userRole == "HR")
+            {
+                var dashboardData = new HRDashboardViewModel
+                {
+                    TotalApprovedClaims = await _reportService.GetApprovedClaimsCountAsync(),
+                    TotalMonthlyAmount = await _reportService.GetTotalMonthlyAmountAsync(),
+                    PendingPayments = await _reportService.GetPendingPaymentsCountAsync()
+                };
+                return View("HRDashboard", dashboardData);
             }
 
-            ViewData["CurrentUser"] = currentUser;
+            // Default fallback
             return View();
         }
 
-        public IActionResult SelectRole()
-        {
-            var lecturers = _userService.GetAllLecturers();
-            ViewBag.Lecturers = lecturers;
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult SelectRole(int lecturerId, string role)
-        {
-            if (lecturerId > 0 && !string.IsNullOrEmpty(role))
-            {
-                _userService.SetCurrentUser(lecturerId, role);
-                return RedirectToAction("Index");
-            }
-
-            TempData["ErrorMessage"] = "Please select both a lecturer and a role.";
-            return RedirectToAction("SelectRole");
-        }
-
-        public IActionResult LoginAsApprover()
-        {
-            // Direct login for approvers 
-            _userService.SetCurrentUser(0, UserRole.ProgrammeCoordinator);
-            return RedirectToAction("Index");
-        }
-
-        public IActionResult LoginAsHR()
-        {
-            // Direct login for HR
-            _userService.SetCurrentUser(0, UserRole.HR);
-            return RedirectToAction("Index");
-        }
-
-        public IActionResult Logout()
-        {
-            _userService.ClearCurrentUser();
-            return RedirectToAction("SelectRole");
-        }
-
-        public IActionResult AccessDenied()
+        public IActionResult Privacy()
         {
             return View();
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
+
+    public class ErrorViewModel
+    {
+        public string? RequestId { get; set; }
+        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+    }
 }
+
+/*
+[1] Microsoft Docs. "ASP.NET Core Fundamentals." https://learn.microsoft.com/en-us/aspnet/core/
+[2] Microsoft Docs. "System.Diagnostics Namespace." https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics
+[3] Microsoft Docs. "Claims-based identity in ASP.NET Core." https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity#claims-based-identity
+[4] Microsoft Docs. "Dependency Injection in ASP.NET Core." https://learn.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection
+*/

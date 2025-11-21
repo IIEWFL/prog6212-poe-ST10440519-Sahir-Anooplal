@@ -1,0 +1,137 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h2 class="mb-4"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</h2>
+
+        @if (ViewBag.UserRole == "Lecturer")
+        {
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4 class="card-title">My Claims</h4>
+                                    <p class="card-text">View and manage your submitted claims</p>
+                                </div>
+                                <div class="display-4">
+                                    <i class="fas fa-file-invoice"></i>
+                                </div>
+                            </div>
+                            <a asp-controller="Claim" asp-action="Index" class="btn btn-light mt-3">View Claims</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card bg-success text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4 class="card-title">Submit Claim</h4>
+                                    <p class="card-text">Submit a new monthly claim</p>
+                                </div>
+                                <div class="display-4">
+                                    <i class="fas fa-plus-circle"></i>
+                                </div>
+                            </div>
+                            <a asp-controller="Claim" asp-action="Submit" class="btn btn-light mt-3">Submit New Claim</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else if (ViewBag.UserRole == "ProgrammeCoordinator" || ViewBag.UserRole == "AcademicManager")
+        {
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card bg-warning text-dark">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4 class="card-title">Pending Claims</h4>
+                                    <p class="card-text">Review and approve pending claims</p>
+                                </div>
+                                <div class="display-4">
+                                    <i class="fas fa-tasks"></i>
+                                </div>
+                            </div>
+                            <a asp-controller="Approval" asp-action="PendingClaims" class="btn btn-dark mt-3">Review Claims</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card bg-info text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4 class="card-title">Approval History</h4>
+                                    <p class="card-text">View previously processed claims</p>
+                                </div>
+                                <div class="display-4">
+                                    <i class="fas fa-history"></i>
+                                </div>
+                            </div>
+                            <a asp-controller="Approval" asp-action="ApprovalHistory" class="btn btn-light mt-3">View History</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else if (ViewBag.UserRole == "HR")
+        {
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4 class="card-title">HR Dashboard</h4>
+                                    <p class="card-text">Overview of claims and payments</p>
+                                </div>
+                                <div class="display-4">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                            </div>
+                            <a asp-controller="HR" asp-action="Dashboard" class="btn btn-light mt-3">View Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card bg-success text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4 class="card-title">Reports</h4>
+                                    <p class="card-text">Generate monthly reports</p>
+                                </div>
+                                <div class="display-4">
+                                    <i class="fas fa-chart-pie"></i>
+                                </div>
+                            </div>
+                            <a asp-controller="HR" asp-action="Reports" class="btn btn-light mt-3">View Reports</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card bg-info text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4 class="card-title">Manage Lecturers</h4>
+                                    <p class="card-text">Manage lecturer accounts</p>
+                                </div>
+                                <div class="display-4">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                            <a asp-controller="HR" asp-action="ManageLecturers" class="btn btn-light mt-3">Manage Users</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

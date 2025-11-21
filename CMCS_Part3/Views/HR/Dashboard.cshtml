@@ -1,0 +1,81 @@
+﻿@using CMCS_Part3.ViewModels
+@model HRDashboardViewModel
+@{
+    ViewData["Title"] = "HR Dashboard";
+}
+
+<h2 class="mb-4"><i class="fas fa-chart-bar me-2"></i>HR Dashboard</h2>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title">@Model.TotalApprovedClaims</h4>
+                        <p class="card-text">Approved Claims</p>
+                    </div>
+                    <div class="display-4">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title">R @Model.TotalMonthlyAmount.ToString("F2")</h4>
+                        <p class="card-text">Monthly Total</p>
+                    </div>
+                    <div class="display-4">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card bg-warning text-dark">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title">@Model.PendingPayments</h4>
+                        <p class="card-text">Pending Payments</p>
+                    </div>
+                    <div class="display-4">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="fas fa-cogs me-2"></i>Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a asp-controller="HR" asp-action="Reports" class="btn btn-outline-primary">
+                        <i class="fas fa-chart-pie me-2"></i>View Reports
+                    </a>
+                    <a asp-controller="HR" asp-action="ManageLecturers" class="btn btn-outline-success">
+                        <i class="fas fa-users me-2"></i>Manage Lecturers
+                    </a>
+                    <a asp-controller="HR" asp-action="AllClaims" class="btn btn-outline-info">
+                        <i class="fas fa-list me-2"></i>View All Claims
+                    </a>
+                    <a asp-controller="Account" asp-action="Register" class="btn btn-outline-warning">
+                        <i class="fas fa-user-plus me-2"></i>Register New User
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

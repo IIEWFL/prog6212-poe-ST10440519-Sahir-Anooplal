@@ -1,0 +1,75 @@
+﻿@using CMCS_Part3.ViewModels
+@model ClaimViewModel
+@{
+    ViewData["Title"] = "Submit New Claim";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="fas fa-plus me-2"></i>Submit New Claim</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="HoursWorked" class="form-label"></label>
+                                <input asp-for="HoursWorked" class="form-control" id="HoursWorked" />
+                                <span asp-validation-for="HoursWorked" class="text-danger" id="hoursError"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="HourlyRate" class="form-label"></label>
+                                <input asp-for="HourlyRate" class="form-control" id="HourlyRate" />
+                                <span asp-validation-for="HourlyRate" class="text-danger" id="rateError"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Auto-calculation display -->
+                    <div class="alert alert-info">
+                        <div class="row">
+                            <div class="col">
+                                <strong>Total Amount: </strong>
+                                <span id="totalAmount" class="fw-bold text-primary">R 0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="AdditionalNotes" class="form-label"></label>
+                        <textarea asp-for="AdditionalNotes" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="AdditionalNotes" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="SupportingDocument" class="form-label"></label>
+                        <input asp-for="SupportingDocument" class="form-control" type="file"
+                               accept=".pdf,.docx,.xlsx,.jpg,.png" />
+                        <small class="form-text text-muted">
+                            Supported formats: PDF, DOCX, XLSX, JPG, PNG (Max: 5MB)
+                        </small>
+                        <span asp-validation-for="SupportingDocument" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane me-2"></i>Submit Claim
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Claims
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/claimCalculator.js"></script>
+}

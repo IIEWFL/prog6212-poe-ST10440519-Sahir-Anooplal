@@ -1,0 +1,120 @@
+﻿@model List<Claim>
+@{
+    ViewData["Title"] = "Lecturer Dashboard";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h2 class="mb-4"><i class="fas fa-tachometer-alt me-2"></i>Lecturer Dashboard</h2>
+
+        <!-- Quick Stats -->
+        <div class="row mb-4">
+            <div class="col-md-3 mb-3">
+                <div class="card bg-primary text-white">
+                    <div class="card-body text-center">
+                        <h4 class="card-title">@Model.Count</h4>
+                        <p class="card-text">Total Claims</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card bg-success text-white">
+                    <div class="card-body text-center">
+                        <h4 class="card-title">@Model.Count(c => c.Status == ClaimStatus.Approved)</h4>
+                        <p class="card-text">Approved</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card bg-warning text-dark">
+                    <div class="card-body text-center">
+                        <h4 class="card-title">@Model.Count(c => c.Status == ClaimStatus.Pending)</h4>
+                        <p class="card-text">Pending</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card bg-danger text-white">
+                    <div class="card-body text-center">
+                        <h4 class="card-title">@Model.Count(c => c.Status == ClaimStatus.Rejected)</h4>
+                        <p class="card-text">Rejected</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="fas fa-plus-circle me-2"></i>Quick Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <a asp-controller="Claim" asp-action="Submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-plus me-2"></i>Submit New Claim
+                            </a>
+                            <a asp-controller="Claim" asp-action="Index" class="btn btn-outline-primary">
+                                <i class="fas fa-list me-2"></i>View All Claims
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="fas fa-clock me-2"></i>Recent Claims</h5>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.Any())
+                        {
+                            <div class="list-group">
+                                @foreach (var claim in Model.Take(3))
+                                {
+                                    <div class="list-group-item">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">Claim #@claim.ClaimId</h6>
+                                            <span class="badge @GetStatusBadgeClass(claim.Status)">@claim.Status</span>
+                                        </div>
+                                        <p class="mb-1">R @claim.TotalAmount.ToString("F2") - @claim.SubmittedDate.ToString("dd MMM yyyy")</p>
+                                    </div>
+                                }
+                            </div>
+                            @if (Model.Count > 3)
+                            {
+                                <div class="mt-3 text-center">
+                                    <a asp-controller="Claim" asp-action="Index" class="btn btn-sm btn-outline-info">
+                                        View All @Model.Count Claims
+                                    </a>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p class="text-muted">No claims submitted yet.</p>
+                            <a asp-controller="Claim" asp-action="Submit" class="btn btn-sm btn-success">
+                                Submit Your First Claim
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    public string GetStatusBadgeClass(ClaimStatus status)
+    {
+        return status switch
+        {
+            ClaimStatus.Pending => "bg-warning text-dark",
+            ClaimStatus.Approved => "bg-success",
+            ClaimStatus.Rejected => "bg-danger",
+            ClaimStatus.Paid => "bg-info",
+            _ => "bg-secondary"
+        };
+    }
+}

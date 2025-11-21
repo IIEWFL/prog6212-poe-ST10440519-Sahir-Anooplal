@@ -1,0 +1,38 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6 text-center">
+        <div class="card shadow">
+            <div class="card-body">
+                <i class="fas fa-exclamation-triangle fa-5x text-danger mb-4"></i>
+                <h1 class="text-danger">Oops!</h1>
+                <h2 class="text-danger">An error occurred while processing your request.</h2>
+
+                @if (Model.ShowRequestId)
+                {
+                    <p>
+                        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+                    </p>
+                }
+
+                <div class="alert alert-info mt-4">
+                    <h5 class="alert-heading">What to do next?</h5>
+                    <p class="mb-2">If this error persists, please contact system administration.</p>
+                    <p class="mb-0">Error details have been logged for investigation.</p>
+                </div>
+
+                <div class="mt-4">
+                    <a href="javascript:history.back()" class="btn btn-secondary me-2">
+                        <i class="fas fa-arrow-left me-1"></i>Go Back
+                    </a>
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">
+                        <i class="fas fa-home me-1"></i>Home Page
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,110 @@
+﻿@model Claim
+@{
+    ViewData["Title"] = $"Claim Details #{Model.ClaimId}";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">Claim Details #@Model.ClaimId</h4>
+                <span class="badge @GetStatusBadgeClass(Model.Status) fs-6">@Model.Status</span>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>Lecturer:</strong><br>
+                        @Model.Lecturer?.FirstName @Model.Lecturer?.LastName
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Submitted Date:</strong><br>
+                        @Model.SubmittedDate.ToString("dd MMM yyyy HH:mm")
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>Hours Worked:</strong><br>
+                        @Model.HoursWorked
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Hourly Rate:</strong><br>
+                        R @Model.HourlyRate
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <strong>Total Amount:</strong><br>
+                        <span class="h4 text-primary">R @Model.TotalAmount.ToString("F2")</span>
+                    </div>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.AdditionalNotes))
+                {
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <strong>Additional Notes:</strong><br>
+                            @Model.AdditionalNotes
+                        </div>
+                    </div>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.DocumentName))
+                {
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <strong>Supporting Document:</strong><br>
+                            <a href="@Model.DocumentPath" target="_blank" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-download me-1"></i>@Model.DocumentName
+                            </a>
+                        </div>
+                    </div>
+                }
+
+                @if (Model.Status == ClaimStatus.Rejected && !string.IsNullOrEmpty(Model.RejectionReason))
+                {
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <strong>Rejection Reason:</strong><br>
+                            <div class="alert alert-danger">@Model.RejectionReason</div>
+                        </div>
+                    </div>
+                }
+
+                @if (Model.Status != ClaimStatus.Pending)
+                {
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <strong>Processed By:</strong><br>
+                            @Model.ProcessedBy
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Processed Date:</strong><br>
+                            @Model.ProcessedDate?.ToString("dd MMM yyyy HH:mm")
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="card-footer">
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-1"></i>Back to Claims
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    public string GetStatusBadgeClass(ClaimStatus status)
+    {
+        return status switch
+        {
+            ClaimStatus.Pending => "bg-warning text-dark",
+            ClaimStatus.Approved => "bg-success",
+            ClaimStatus.Rejected => "bg-danger",
+            ClaimStatus.Paid => "bg-info",
+            _ => "bg-secondary"
+        };
+    }
+}

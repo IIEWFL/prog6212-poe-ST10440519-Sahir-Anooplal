@@ -1,59 +1,113 @@
-﻿@model IEnumerable<Report>
+﻿@model List<Claim>
 @{
-    ViewData["Title"] = "Reports";
+    ViewData["Title"] = "Monthly Reports";
 }
 
-<h2>Reports</h2>
+<h2 class="mb-4"><i class="fas fa-chart-pie me-2"></i>Monthly Reports</h2>
 
-<div class="row">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title mb-0">Recent Reports</h5>
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="post" asp-action="GenerateReport" class="row g-3">
+            <div class="col-md-3">
+                <label for="month" class="form-label">Month</label>
+                <select class="form-select" id="month" name="month">
+                    @for (int i = 1; i <= 12; i++)
+                    {
+                        <option value="@i" selected="@(i == DateTime.Now.Month)">@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i)</option>
+                    }
+                </select>
             </div>
-            <div class="card-body">
-                @if (Model.Any())
-                {
-                    <div class="list-group">
-                        @foreach (var report in Model)
-                        {
-                            <a href="@Url.Action("ReportDetails", new { id = report.Id })"
-                               class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h6 class="mb-1">@report.ReportName</h6>
-                                    <small>@report.GeneratedDate.ToString("dd MMM yyyy")</small>
-                                </div>
-                                <p class="mb-1">@report.Type - @report.TotalClaims claims</p>
-                                <small class="text-muted">Total: R@(report.TotalAmount.ToString("N2"))</small>
-                            </a>
-                        }
-                    </div>
-                }
-                else
-                {
-                    <p class="text-muted">No reports generated yet.</p>
-                }
+            <div class="col-md-3">
+                <label for="year" class="form-label">Year</label>
+                <select class="form-select" id="year" name="year">
+                    @for (int i = DateTime.Now.Year - 1; i <= DateTime.Now.Year + 1; i++)
+                    {
+                        <option value="@i" selected="@(i == DateTime.Now.Year)">@i</option>
+                    }
+                </select>
             </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title mb-0">Quick Actions</h5>
+            <div class="col-md-3 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-chart-bar me-2"></i>Generate Report
+                </button>
             </div>
-            <div class="card-body">
-                <div class="d-grid gap-2">
-                    <a href="@Url.Action("GenerateReport")" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Generate New Report
-                    </a>
-                    <a href="@Url.Action("ClaimAnalysis")" class="btn btn-info">
-                        <i class="fas fa-chart-pie"></i> View Analysis
-                    </a>
-                    <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
-                        Back to Dashboard
-                    </a>
-                </div>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
+
+@if (Model.Any())
+{
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Claims Report</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Claim ID</th>
+                            <th>Lecturer</th>
+                            <th>Hours</th>
+                            <th>Rate</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Submitted</th>
+                            <th>Document</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var claim in Model)
+                        {
+                            <tr>
+                                <td>#@claim.ClaimId</td>
+                                <td>@claim.Lecturer?.FirstName @claim.Lecturer?.LastName</td>
+                                <td>@claim.HoursWorked</td>
+                                <td>R @claim.HourlyRate</td>
+                                <td class="fw-bold text-primary">R @claim.TotalAmount.ToString("F2")</td>
+                                <td>
+                                    <span class="badge @GetStatusBadgeClass(claim.Status)">
+                                        @claim.Status
+                                    </span>
+                                </td>
+                                <td>@claim.SubmittedDate.ToString("dd MMM yyyy")</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(claim.DocumentName))
+                                    {
+                                        <a href="@claim.DocumentPath" target="_blank" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">None</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle me-2"></i>No claims found for the selected period.
+    </div>
+}
+
+@functions {
+    public string GetStatusBadgeClass(ClaimStatus status)
+    {
+        return status switch
+        {
+            ClaimStatus.Pending => "bg-warning text-dark",
+            ClaimStatus.Approved => "bg-success",
+            ClaimStatus.Rejected => "bg-danger",
+            ClaimStatus.Paid => "bg-info",
+            _ => "bg-secondary"
+        };
+    }
+}

@@ -1,36 +1,51 @@
 using Microsoft.EntityFrameworkCore;
-using CMCS_Part3.Models;
+using CMCS_Part3.Data;
 using CMCS_Part3.Services;
+using Microsoft.AspNetCore.Identity;
+using CMCS_Part3.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+// Add services to the container
+builder.Services.AddControllersWithViews(); //[1]
 
-// Add DbContext with InMemory database
-builder.Services.AddDbContext<CMCSDbContext>(options =>
-    options.UseInMemoryDatabase("CMCSDatabase"));
+// Configure in-memory database
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseInMemoryDatabase("CMCS_Database")); //[1]
 
-// Add session for user management
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(options =>
+// Configure identity with in-memory stores
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-});
+    options.Password.RequireDigit = false; //[2]
+    options.Password.RequireLowercase = false; //[2]
+    options.Password.RequireNonAlphanumeric = false; //[2]
+    options.Password.RequireUppercase = false; //[2]
+    options.Password.RequiredLength = 3; //[2]
+})
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
 
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IFileService, FileService>();
-builder.Services.AddScoped<IApprovalService, ApprovalService>();
-builder.Services.AddScoped<IReportService, ReportService>();
-builder.Services.AddScoped<IStatusService, StatusService>();
+// Register services
+builder.Services.AddScoped<IClaimService, ClaimService>(); //[1]
+builder.Services.AddScoped<IReportService, ReportService>(); //[1]
+builder.Services.AddScoped<IUserService, UserService>(); //[1]
+
+builder.Services.AddSession();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+// Seed initial data
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>(); //[1]
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>(); //[2]
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>(); //[2]
+
+    await SeedData.Initialize(context, userManager, roleManager); //[1]
+}
+
+// Configure pipeline
+if (!app.Environment.IsDevelopment()) //[1]
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
@@ -39,9 +54,8 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
-
-// Use session
 app.UseSession();
 
 app.MapControllerRoute(
@@ -49,3 +63,9 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+
+/*
+[1] Microsoft Docs. "ASP.NET Core Fundamentals." https://learn.microsoft.com/en-us/aspnet/core/
+[2] Microsoft Docs. "ASP.NET Core Identity." https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity
+*/

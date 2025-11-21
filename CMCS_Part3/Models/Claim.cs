@@ -1,65 +1,65 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CMCS_Part3.Models
 {
     public class Claim
     {
-        public int Id { get; set; }
+        [Key]
+        public int ClaimId { get; set; }
 
-        [Display(Name = "Submission Date")]
-        public DateTime SubmissionDate { get; set; } = DateTime.Now;
+        [Required]
+        public string LecturerId { get; set; } = string.Empty;
 
-        [Display(Name = "Month")]
-        [Required(ErrorMessage = "Please select a month.")]
-        public string ClaimMonth { get; set; } = DateTime.Now.ToString("yyyy-MM");
-
+        [Required]
         [Display(Name = "Hours Worked")]
-        [Range(1, 200, ErrorMessage = "Hours worked must be between 1 and 200.")]
-        public double HoursWorked { get; set; }
+        [Range(1, 176, ErrorMessage = "Hours worked must be between 1 and 176")]
+        public decimal HoursWorked { get; set; }
 
-        [Display(Name = "Hourly Rate")]
-        [Range(100, 1000, ErrorMessage = "Hourly rate must be between R100 and R1000.")]
-        [DataType(DataType.Currency)]
+        [Required]
+        [Display(Name = "Hourly Rate (R)")]
+        [Range(100, 1000, ErrorMessage = "Hourly rate must be between R100 and R1000")]
         public decimal HourlyRate { get; set; }
 
-        [Display(Name = "Additional Notes")]
-        [StringLength(500, ErrorMessage = "Notes cannot exceed 500 characters.")]
-        public string? Notes { get; set; }
+        [NotMapped]
+        [Display(Name = "Total Amount")]
+        public decimal TotalAmount => HoursWorked * HourlyRate;
 
-        [Display(Name = "Status")]
+        [Display(Name = "Additional Notes")]
+        [StringLength(500)]
+        public string? AdditionalNotes { get; set; }
+
+        [Display(Name = "Supporting Document")]
+        public string? DocumentPath { get; set; }
+
+        [Display(Name = "Document Name")]
+        public string? DocumentName { get; set; }
+
+        [Required]
         public ClaimStatus Status { get; set; } = ClaimStatus.Pending;
 
-        [Display(Name = "Approval Date")]
-        public DateTime? ApprovalDate { get; set; }
+        [Display(Name = "Submitted Date")]
+        public DateTime SubmittedDate { get; set; } = DateTime.UtcNow;
 
-        [Display(Name = "Approved By")]
-        public string? ApprovedBy { get; set; }
+        [Display(Name = "Processed Date")]
+        public DateTime? ProcessedDate { get; set; }
+
+        [Display(Name = "Processed By")]
+        public string? ProcessedBy { get; set; }
 
         [Display(Name = "Rejection Reason")]
+        [StringLength(500)]
         public string? RejectionReason { get; set; }
 
-        // Foreign Key
-        public int LecturerId { get; set; }
-
         // Navigation properties
-        public Lecturer? Lecturer { get; set; }
-        public List<SupportingDocument> SupportingDocuments { get; set; } = new List<SupportingDocument>();
-
-        // Automated calculated properties
-        [Display(Name = "Total Amount")]
-        public decimal TotalAmount => (decimal)HoursWorked * HourlyRate;
-
-        [Display(Name = "Days Pending")]
-        public int DaysPending => (DateTime.Now - SubmissionDate).Days;
-
-        [Display(Name = "IsOverdue")]
-        public bool IsOverdue => DaysPending > 30 && Status == ClaimStatus.Pending;
+        public virtual ApplicationUser? Lecturer { get; set; }
     }
 
     public enum ClaimStatus
     {
         Pending,
         Approved,
-        Rejected
+        Rejected,
+        Paid
     }
 }

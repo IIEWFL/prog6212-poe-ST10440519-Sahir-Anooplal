@@ -1,0 +1,96 @@
+﻿@model List<Claim>
+@{
+    ViewData["Title"] = "Approver Dashboard";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h2 class="mb-4"><i class="fas fa-tachometer-alt me-2"></i>Approver Dashboard</h2>
+
+        <!-- Quick Stats -->
+        <div class="row mb-4">
+            <div class="col-md-4 mb-3">
+                <div class="card bg-warning text-dark">
+                    <div class="card-body text-center">
+                        <h4 class="card-title">@Model.Count</h4>
+                        <p class="card-text">Pending Claims</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card bg-success text-white">
+                    <div class="card-body text-center">
+                        <h4 class="card-title">@(Model.Count > 0 ? Model.Average(c => c.TotalAmount).ToString("F2") : "0")</h4>
+                        <p class="card-text">Average Claim Amount</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card bg-info text-white">
+                    <div class="card-body text-center">
+                        <h4 class="card-title">@(Model.Sum(c => c.TotalAmount).ToString("F2"))</h4>
+                        <p class="card-text">Total Pending Amount</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="fas fa-tasks me-2"></i>Quick Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <a asp-controller="Approval" asp-action="PendingClaims" class="btn btn-primary btn-lg">
+                                <i class="fas fa-list me-2"></i>Review Pending Claims
+                            </a>
+                            <a asp-controller="Approval" asp-action="ApprovalHistory" class="btn btn-outline-info">
+                                <i class="fas fa-history me-2"></i>View Approval History
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="mb-0"><i class="fas fa-clock me-2"></i>Pending Claims</h5>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.Any())
+                        {
+                            <div class="list-group">
+                                @foreach (var claim in Model.Take(3))
+                                {
+                                    <div class="list-group-item">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">Claim #@claim.ClaimId</h6>
+                                            <small>@claim.SubmittedDate.ToString("dd MMM")</small>
+                                        </div>
+                                        <p class="mb-1">@claim.Lecturer?.FirstName @claim.Lecturer?.LastName</p>
+                                        <p class="mb-1">R @claim.TotalAmount.ToString("F2")</p>
+                                    </div>
+                                }
+                            </div>
+                            @if (Model.Count > 3)
+                            {
+                                <div class="mt-3 text-center">
+                                    <a asp-controller="Approval" asp-action="PendingClaims" class="btn btn-sm btn-outline-warning">
+                                        Review All @Model.Count Claims
+                                    </a>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p class="text-muted">No pending claims at the moment.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

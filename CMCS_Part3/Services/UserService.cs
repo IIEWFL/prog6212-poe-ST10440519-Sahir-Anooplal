@@ -1,74 +1,42 @@
 ﻿using CMCS_Part3.Models;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace CMCS_Part3.Services
 {
     public class UserService : IUserService
     {
-        private readonly CMCSDbContext _context;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private const string SessionUserKey = "CurrentUser";
+        private readonly UserManager<ApplicationUser> _userManager; //[2]
 
-        public UserService(CMCSDbContext context, IHttpContextAccessor httpContextAccessor)
+        public UserService(UserManager<ApplicationUser> userManager)
         {
-            _context = context;
-            _httpContextAccessor = httpContextAccessor;
+            _userManager = userManager; //[2]
         }
 
-        public CurrentUser? GetCurrentUser()
+        public async Task<ApplicationUser?> GetUserByIdAsync(string userId)
         {
-            var httpContext = _httpContextAccessor.HttpContext;
-            if (httpContext?.Session.GetString(SessionUserKey) is string userData)
+            return await _userManager.FindByIdAsync(userId); //[2]
+        }
+
+        public async Task<List<ApplicationUser>> GetUsersByRoleAsync(string role)
+        {
+            var users = await _userManager.GetUsersInRoleAsync(role); //[2]
+            return users.ToList(); //[1]
+        }
+
+        public async Task<string?> GetUserRoleAsync(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId); //[2]
+            if (user != null)
             {
-                return System.Text.Json.JsonSerializer.Deserialize<CurrentUser>(userData);
+                var roles = await _userManager.GetRolesAsync(user); //[2]
+                return roles.FirstOrDefault(); //[1]
             }
             return null;
         }
-
-        public void SetCurrentUser(int lecturerId, string role)
-        {
-            var lecturer = _context.Lecturers.FirstOrDefault(l => l.Id == lecturerId);
-            if (lecturer != null)
-            {
-                var currentUser = new CurrentUser
-                {
-                    LecturerId = lecturerId,
-                    Name = lecturer.Name,
-                    Email = lecturer.Email,
-                    Role = role
-                };
-
-                var userData = System.Text.Json.JsonSerializer.Serialize(currentUser);
-                _httpContextAccessor.HttpContext?.Session.SetString(SessionUserKey, userData);
-            }
-        }
-
-        public void ClearCurrentUser()
-        {
-            _httpContextAccessor.HttpContext?.Session.Remove(SessionUserKey);
-        }
-
-        public List<Lecturer> GetAllLecturers()
-        {
-            return _context.Lecturers.Where(l => l.IsActive).OrderBy(l => l.Name).ToList();
-        }
-
-        public bool CanAccessClaims()
-        {
-            var user = GetCurrentUser();
-            return user?.IsLecturer == true;
-        }
-
-        public bool CanAccessApproval()
-        {
-            var user = GetCurrentUser();
-            return user?.IsApprover == true;
-        }
-
-        public bool CanAccessHR()
-        {
-            var user = GetCurrentUser();
-            return user?.IsHR == true;
-        }
     }
 }
+
+/*
+[1] Microsoft Docs. "C# Programming Guide." https://learn.microsoft.com/en-us/dotnet/csharp/
+[2] Microsoft Docs. "ASP.NET Core Identity." https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity
+*/

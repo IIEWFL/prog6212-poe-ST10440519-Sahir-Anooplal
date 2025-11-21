@@ -1,6 +1,6 @@
 wwwroot\css\site.css
 wwwroot\favicon.ico
-wwwroot\js\claims-automation.js
+wwwroot\js\claimCalculator.js
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
@@ -62,11 +62,9 @@ wwwroot\lib\jquery\dist\jquery.slim.js
 wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
-wwwroot\js\file-upload-enhanced.js
-C:\Users\lab_services_student\Downloads\prog6212-poe-ST10440519-Sahir-Anooplal\CMCS_Part3\wwwroot\css\site.css
 C:\Users\lab_services_student\Downloads\prog6212-poe-ST10440519-Sahir-Anooplal\CMCS_Part3\wwwroot\favicon.ico
-C:\Users\lab_services_student\Downloads\prog6212-poe-ST10440519-Sahir-Anooplal\CMCS_Part3\wwwroot\js\claims-automation.js
 C:\Users\lab_services_student\Downloads\prog6212-poe-ST10440519-Sahir-Anooplal\CMCS_Part3\wwwroot\js\site.js
+C:\Users\lab_services_student\Downloads\prog6212-poe-ST10440519-Sahir-Anooplal\CMCS_Part3\wwwroot\js\claimCalculator.js
 C:\Users\lab_services_student\Downloads\prog6212-poe-ST10440519-Sahir-Anooplal\CMCS_Part3\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 C:\Users\lab_services_student\Downloads\prog6212-poe-ST10440519-Sahir-Anooplal\CMCS_Part3\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
 C:\Users\lab_services_student\Downloads\prog6212-poe-ST10440519-Sahir-Anooplal\CMCS_Part3\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
@@ -126,4 +124,4 @@ C:\Users\lab_services_student\Downloads\prog6212-poe-ST10440519-Sahir-Anooplal\C
 C:\Users\lab_services_student\Downloads\prog6212-poe-ST10440519-Sahir-Anooplal\CMCS_Part3\wwwroot\lib\jquery\dist\jquery.slim.min.js
 C:\Users\lab_services_student\Downloads\prog6212-poe-ST10440519-Sahir-Anooplal\CMCS_Part3\wwwroot\lib\jquery\dist\jquery.slim.min.map
 C:\Users\lab_services_student\Downloads\prog6212-poe-ST10440519-Sahir-Anooplal\CMCS_Part3\wwwroot\lib\jquery\LICENSE.txt
-C:\Users\lab_services_student\Downloads\prog6212-poe-ST10440519-Sahir-Anooplal\CMCS_Part3\wwwroot\js\file-upload-enhanced.js
+C:\Users\lab_services_student\Downloads\prog6212-poe-ST10440519-Sahir-Anooplal\CMCS_Part3\wwwroot\css\site.css

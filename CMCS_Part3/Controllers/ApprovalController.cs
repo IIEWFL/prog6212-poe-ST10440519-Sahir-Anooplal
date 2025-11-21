@@ -1,258 +1,101 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using CMCS_Part3.Models;
 using CMCS_Part3.Services;
 
 namespace CMCS_Part3.Controllers
 {
+    [Authorize(Roles = "ProgrammeCoordinator,AcademicManager")] //[1]
     public class ApprovalController : Controller
     {
-        private readonly CMCSDbContext _context;
-        private readonly IApprovalService _approvalService;
-        private readonly IUserService _userService;
+        private readonly IClaimService _claimService; //[2]
+        private readonly IReportService _reportService; //[2]
 
-        public ApprovalController(CMCSDbContext context, IApprovalService approvalService, IUserService userService)
+        public ApprovalController(IClaimService claimService, IReportService reportService)
         {
-            _context = context;
-            _approvalService = approvalService;
-            _userService = userService;
+            _claimService = claimService; //[2]
+            _reportService = reportService; //[2]
         }
 
-        // GET: Approval - Shows all pending claims with automated validation
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> PendingClaims()
         {
-            if (!_userService.CanAccessApproval())
-            {
-                return RedirectToAction("AccessDenied", "Home");
-            }
+            var claims = await _claimService.GetPendingClaimsAsync(); //[2]
+            return View(claims);
+        }
 
-            var currentUser = _userService.GetCurrentUser();
-            var pendingClaims = await _context.Claims
-                .Include(c => c.Lecturer)
-                .Include(c => c.SupportingDocuments)
-                .Where(c => c.Status == ClaimStatus.Pending)
-                .OrderBy(c => c.SubmissionDate)
-                .ToListAsync();
+        public async Task<IActionResult> ApprovalHistory()
+        {
+            var claims = await _claimService.GetAllClaimsAsync(); //[2]
+            return View(claims);
+        }
 
-            // Run automated validation on all claims
-            var claimsWithValidation = new List<ClaimWithValidation>();
-            foreach (var claim in pendingClaims)
+        [HttpPost]
+        [ValidateAntiForgeryToken] //[1]
+        public async Task<IActionResult> Approve(int claimId)
+        {
+            try
             {
-                var validationResult = await _approvalService.ValidateClaimAsync(claim);
-                claimsWithValidation.Add(new ClaimWithValidation
+                var currentUser = User.Identity?.Name ?? "Unknown"; //[1]
+                var result = await _claimService.ApproveClaimAsync(claimId, currentUser);
+
+                if (result.Success)
                 {
-                    Claim = claim,
-                    ValidationResult = validationResult
-                });
+                    TempData["SuccessMessage"] = "Claim approved successfully!"; //[1]
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = result.ErrorMessage; //[1]
+                }
+            }
+            catch (Exception)
+            {
+                TempData["ErrorMessage"] = "An error occurred while approving the claim."; //[1]
             }
 
-            ViewData["CurrentUser"] = currentUser;
-            ViewData["ApprovalCriteria"] = _approvalService.GetApprovalCriteria();
-
-            return View(claimsWithValidation);
+            return RedirectToAction("PendingClaims"); //[1]
         }
 
-        // GET: Approval/All - Shows all claims with status
-        public async Task<IActionResult> All()
+        [HttpPost]
+        [ValidateAntiForgeryToken] //[1]
+        public async Task<IActionResult> Reject(int claimId, string rejectionReason)
         {
-            if (!_userService.CanAccessApproval())
+            try
             {
-                return RedirectToAction("AccessDenied", "Home");
+                var currentUser = User.Identity?.Name ?? "Unknown"; //[1]
+                var result = await _claimService.RejectClaimAsync(claimId, currentUser, rejectionReason);
+
+                if (result.Success)
+                {
+                    TempData["SuccessMessage"] = "Claim rejected successfully!"; //[1]
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = result.ErrorMessage; //[1]
+                }
+            }
+            catch (Exception)
+            {
+                TempData["ErrorMessage"] = "An error occurred while rejecting the claim."; //[1]
             }
 
-            var allClaims = await _context.Claims
-                .Include(c => c.Lecturer)
-                .Include(c => c.SupportingDocuments)
-                .OrderByDescending(c => c.SubmissionDate)
-                .ToListAsync();
-
-            ViewData["CurrentUser"] = _userService.GetCurrentUser();
-            return View(allClaims);
+            return RedirectToAction("PendingClaims"); //[1]
         }
 
-        // GET: Approval/Details/5 - Claim details with automated validation
-        public async Task<IActionResult> Details(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
         {
-            if (!_userService.CanAccessApproval())
-            {
-                return RedirectToAction("AccessDenied", "Home");
-            }
-
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var claim = await _context.Claims
-                .Include(c => c.Lecturer)
-                .Include(c => c.SupportingDocuments)
-                .FirstOrDefaultAsync(c => c.Id == id);
-
+            var claim = await _claimService.GetClaimByIdAsync(id); //[2]
             if (claim == null)
             {
                 return NotFound();
             }
 
-            var validationResult = await _approvalService.ValidateClaimAsync(claim);
-            var autoApproveClaims = await _approvalService.GetClaimsForAutoApprovalAsync();
-            var canAutoApprove = autoApproveClaims.Any(c => c.Id == id);
-
-            ViewData["CurrentUser"] = _userService.GetCurrentUser();
-            ViewData["ValidationResult"] = validationResult;
-            ViewData["CanAutoApprove"] = canAutoApprove;
-            ViewData["ApprovalCriteria"] = _approvalService.GetApprovalCriteria();
-
             return View(claim);
         }
-
-        // POST: Approval/Approve/5 - With automated validation
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Approve(int id, bool? autoApprove = false)
-        {
-            if (!_userService.CanAccessApproval())
-            {
-                return RedirectToAction("AccessDenied", "Home");
-            }
-
-            var currentUser = _userService.GetCurrentUser();
-            if (currentUser == null)
-            {
-                return RedirectToAction("SelectRole", "Home");
-            }
-
-            try
-            {
-                ApprovalWorkflowResult result;
-
-                if (autoApprove == true)
-                {
-                    var claim = await _context.Claims.FindAsync(id);
-                    if (claim != null)
-                    {
-                        var autoApproved = await _approvalService.AutoApproveClaimAsync(claim, currentUser.Name);
-                        if (autoApproved)
-                        {
-                            TempData["SuccessMessage"] = $"Claim #{id} was auto-approved successfully!";
-                        }
-                        else
-                        {
-                            TempData["ErrorMessage"] = $"Claim #{id} does not meet auto-approval criteria.";
-                        }
-                    }
-                }
-                else
-                {
-                    result = await _approvalService.ProcessApprovalWorkflowAsync(id, currentUser.Name, true);
-
-                    if (result.Success)
-                    {
-                        TempData["SuccessMessage"] = result.Message;
-                    }
-                    else
-                    {
-                        TempData["ErrorMessage"] = result.Message;
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                TempData["ErrorMessage"] = "An error occurred while approving the claim.";
-                // Log the exception in a real application
-            }
-
-            return RedirectToAction(nameof(Index));
-        }
-
-        // POST: Approval/Reject/5 - With reason
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Reject(int id, string rejectionReason)
-        {
-            if (!_userService.CanAccessApproval())
-            {
-                return RedirectToAction("AccessDenied", "Home");
-            }
-
-            var currentUser = _userService.GetCurrentUser();
-            if (currentUser == null)
-            {
-                return RedirectToAction("SelectRole", "Home");
-            }
-
-            try
-            {
-                var result = await _approvalService.ProcessApprovalWorkflowAsync(id, currentUser.Name, false, rejectionReason);
-
-                if (result.Success)
-                {
-                    TempData["SuccessMessage"] = result.Message;
-                }
-                else
-                {
-                    TempData["ErrorMessage"] = result.Message;
-                }
-            }
-            catch (Exception)
-            {
-                TempData["ErrorMessage"] = "An error occurred while rejecting the claim.";
-                // Log the exception in a real application
-            }
-
-            return RedirectToAction(nameof(Index));
-        }
-
-        // POST: Approval/BulkAutoApprove - Auto-approve all eligible claims
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> BulkAutoApprove()
-        {
-            if (!_userService.CanAccessApproval())
-            {
-                return RedirectToAction("AccessDenied", "Home");
-            }
-
-            var currentUser = _userService.GetCurrentUser();
-            var autoApproveClaims = await _approvalService.GetClaimsForAutoApprovalAsync();
-            var approvedCount = 0;
-
-            foreach (var claim in autoApproveClaims)
-            {
-                var success = await _approvalService.AutoApproveClaimAsync(claim, currentUser?.Name ?? "System");
-                if (success) approvedCount++;
-            }
-
-            if (approvedCount > 0)
-            {
-                TempData["SuccessMessage"] = $"Auto-approved {approvedCount} claims successfully!";
-            }
-            else
-            {
-                TempData["InfoMessage"] = "No claims met the auto-approval criteria.";
-            }
-
-            return RedirectToAction(nameof(Index));
-        }
-
-        // GET: Approval/AutoApproveList - Show claims eligible for auto-approval
-        public async Task<IActionResult> AutoApproveList()
-        {
-            if (!_userService.CanAccessApproval())
-            {
-                return RedirectToAction("AccessDenied", "Home");
-            }
-
-            var autoApproveClaims = await _approvalService.GetClaimsForAutoApprovalAsync();
-            ViewData["CurrentUser"] = _userService.GetCurrentUser();
-
-            return View(autoApproveClaims);
-        }
-    }
-
-    // Helper class for views
-    public class ClaimWithValidation
-    {
-        public Claim Claim { get; set; } = null!;
-        public ApprovalValidationResult ValidationResult { get; set; } = null!;
     }
 }
+
+/*
+[1] Microsoft Docs. "ASP.NET Core Fundamentals." https://learn.microsoft.com/en-us/aspnet/core/
+[2] Microsoft Docs. "Dependency Injection in ASP.NET Core." https://learn.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection
+*/
