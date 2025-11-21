@@ -3,6 +3,15 @@
   "WorkspaceRootPath": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{0C302498-B381-41F2-A916-CBF36A57EB3F}|..\\CMCS_Part3.Tests\\CMCS_Part3.Tests.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3.tests\\services\\reportservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C302498-B381-41F2-A916-CBF36A57EB3F}|..\\CMCS_Part3.Tests\\CMCS_Part3.Tests.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3.tests\\services\\claimservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C302498-B381-41F2-A916-CBF36A57EB3F}|..\\CMCS_Part3.Tests\\CMCS_Part3.Tests.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3.tests\\testhelpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|c:\\users\\lab_services_student\\downloads\\prog6212-poe-st10440519-sahir-anooplal\\cmcs_part3\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0C889ABA-740D-4020-8B7E-0785EC759FA1}|CMCS_Part3.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -14,11 +23,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TestHelpers.cs",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3.Tests\\TestHelpers.cs",
+              "RelativeDocumentMoniker": "..\\CMCS_Part3.Tests\\TestHelpers.cs",
+              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3.Tests\\TestHelpers.cs",
+              "RelativeToolTip": "..\\CMCS_Part3.Tests\\TestHelpers.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-21T14:24:07.427Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ReportServiceTests.cs",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3.Tests\\Services\\ReportServiceTests.cs",
+              "RelativeDocumentMoniker": "..\\CMCS_Part3.Tests\\Services\\ReportServiceTests.cs",
+              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3.Tests\\Services\\ReportServiceTests.cs",
+              "RelativeToolTip": "..\\CMCS_Part3.Tests\\Services\\ReportServiceTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJIAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-21T14:22:48.863Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ClaimServiceTests.cs",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3.Tests\\Services\\ClaimServiceTests.cs",
+              "RelativeDocumentMoniker": "..\\CMCS_Part3.Tests\\Services\\ClaimServiceTests.cs",
+              "ToolTip": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3.Tests\\Services\\ClaimServiceTests.cs",
+              "RelativeToolTip": "..\\CMCS_Part3.Tests\\Services\\ClaimServiceTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHcAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-21T14:20:35.854Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Downloads\\prog6212-poe-ST10440519-Sahir-Anooplal\\CMCS_Part3\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
